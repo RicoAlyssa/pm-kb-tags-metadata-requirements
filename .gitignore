@@ -1,0 +1,16 @@
+.pytest_cache/
+__pycache__/
+*.pyc
+*.tmp
+*.log
+*.har
+*.trace.zip
+playwright-report/
+test-results/
+
+# Never commit runtime credentials or authenticated exports.
+.env
+.env.*
+*cookies*.json
+*auth*.json
+*secrets*.json

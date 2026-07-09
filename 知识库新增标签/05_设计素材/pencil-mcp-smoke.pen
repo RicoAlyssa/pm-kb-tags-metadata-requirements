@@ -1,0 +1,89 @@
+{
+  "version": "2.14",
+  "children": [
+    {
+      "type": "frame",
+      "id": "J2GN8g",
+      "x": 0,
+      "y": 0,
+      "name": "Pencil MCP Smoke Test",
+      "clip": true,
+      "width": 640,
+      "height": 360,
+      "fill": "#F7F8FA",
+      "layout": "vertical",
+      "gap": 16,
+      "padding": 32,
+      "children": [
+        {
+          "type": "text",
+          "id": "VLaR2",
+          "name": "Smoke Test Title",
+          "fill": "#172033",
+          "content": "Pencil MCP 已连通",
+          "fontFamily": "Inter",
+          "fontSize": 28,
+          "fontWeight": "600"
+        },
+        {
+          "type": "text",
+          "id": "tAF66",
+          "name": "Smoke Test Description",
+          "fill": "#536179",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "真实 .pen 读写、布局检查和截图验证",
+          "fontFamily": "Inter",
+          "fontSize": 16,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "frame",
+          "id": "hkl77",
+          "name": "Connection Status",
+          "fill": "#E8F7EE",
+          "cornerRadius": 8,
+          "gap": 10,
+          "padding": [
+            10,
+            14
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "ellipse",
+              "id": "XlcSN",
+              "name": "Connected Indicator",
+              "fill": "#1D9A55",
+              "width": 10,
+              "height": 10
+            },
+            {
+              "type": "text",
+              "id": "YodSC",
+              "name": "Connected Label",
+              "fill": "#146C3C",
+              "content": "Connected · 2026-07-09",
+              "fontFamily": "Inter",
+              "fontSize": 14,
+              "fontWeight": "500"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "Z2qvL",
+          "name": "Traceability Note",
+          "fill": "#758096",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "LIVE-MCP-001 | competitor-ui-to-pencil deployment gate",
+          "fontFamily": "Inter",
+          "fontSize": 13,
+          "fontWeight": "normal"
+        }
+      ]
+    }
+  ],
+  "fileToken": "abc91eb0-c8da-472d-81b9-1c17a9fb5872"
+}
