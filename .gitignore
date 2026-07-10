@@ -8,6 +8,9 @@ __pycache__/
 playwright-report/
 test-results/
 
+# Pencil MCP scratch exports.
+**/05_设计素材/pencil-mcp-smoke/
+
 # Never commit runtime credentials or authenticated exports.
 .env
 .env.*

@@ -1,6 +1,6 @@
 # PRD：知识库新增元数据
 
-状态：评审中草稿（已有底层接口线索，但缺完整 schema、检索过滤接口、正式原型截图，不能标“已批准”）
+状态：评审中草稿（瀚海底层接口已见；当前星流平台 API Explorer/控制台未暴露同等能力；缺完整校验规则、正式原型截图，不能标“已批准”）
 
 版本：v0.2
 更新日期：2026-07-10
@@ -13,7 +13,7 @@
 |---|---|
 | 需求名称 | 知识库新增元数据 |
 | 需求 ID | KB-META |
-| 当前阶段 | 竞品调研 + PRD 草稿 + 接口补齐 |
+| 当前阶段 | 竞品调研 + PRD 草稿 + 接口补齐 + 平台接入确认 |
 | 证据索引 | `../02_竞品调研/evidence/evidence-index.md` |
 | 接口索引 | `../06_接口/接口清单.md` |
 | 原型状态 | 正式 Pencil 原型未开始 |
@@ -21,7 +21,7 @@
 
 ## 1. 背景与问题
 
-底层已有元数据能力，但控制台未暴露。管理员无法在页面上定义、查看或修改文档的自定义原始信息，应用配置人员也无法稳定地用元数据做检索过滤。
+瀚海 OPEN-API 已出现元数据能力，但金山云当前星流平台 API Explorer 和控制台尚未暴露同等能力。管理员无法在页面上定义、查看或修改文档的自定义原始信息，应用配置人员也无法稳定地用元数据做检索过滤。
 
 典型场景：
 
@@ -146,13 +146,19 @@ flowchart TD
 
 ### 8.1 已验证我方接口线索
 
+接口证据需要分成两层：
+
+- 瀚海 OPEN-API：已看到元数据定义、文档元数据赋值、检索过滤相关接口。
+- 金山云当前星流平台 API Explorer：截至 2026-07-10，只读核查未看到同等元数据定义/赋值接口；`DescribeDocument.Metadata` 仅表示返回内容粒度 `all / only / without`，不是自定义元数据字段。
+
 | 能力 | 方法/路径 | 状态 |
 |---|---|---|
-| 新增元数据 | Apifox `/473610411e0` | 路径/字段待提取 |
-| 更新元数据 | Apifox `/473619166e0` | 路径/字段待提取 |
-| 删除元数据 | Apifox `/473629415e0` | 路径/字段待提取 |
-| 查询元数据 | Apifox `/473713180e0` | 路径/响应待提取 |
+| 新增元数据 | `POST /knowledge/openapi/v2/datasets/{dataset_id}/metadata` | 瀚海已见；平台接入待确认 |
+| 更新元数据 | `PATCH /knowledge/openapi/v2/datasets/{dataset_id}/metadata/{metadata_id}` | 瀚海已见；当前只见改名字段 `name` |
+| 删除元数据 | `DELETE /knowledge/openapi/v2/datasets/{dataset_id}/metadata/{metadata_id}` | 瀚海已见；删除影响待确认 |
+| 查询元数据 | `GET /knowledge/openapi/v2/datasets/{dataset_id}/metadata` | 瀚海已见；响应含 `doc_metadata[]`、`count`、`built_in_field_enabled` |
 | 更新文档元数据 | `POST /knowledge/openapi/v2/datasets/{dataset_id}/documents/metadata` | 已提取主要结构 |
+| 检索元数据过滤 | `POST /knowledge/openapi/v2/datasets/{dataset_id}/retrieve` | 瀚海已见 `filter_expression` / `metadata_filtering_conditions`；当前平台 `RetrieveKnowledge` 未见同等字段 |
 
 更新文档元数据已知结构：
 
@@ -171,6 +177,7 @@ flowchart TD
 | 是否支持 `partial_update` 或覆盖更新 | 决定批量编辑器“只更新已有字段/应用到全部” |
 | 批量更新是全量事务还是部分成功 | 决定失败清单和回滚 |
 | 检索接口 metadata filter 的表达式 | 决定应用配置和 QA 用例 |
+| 瀚海元数据接口如何接入当前星流平台 | 决定前端调用路径、鉴权、错误码、上线版本 |
 
 ## 9. 异常与边界
 
@@ -226,6 +233,7 @@ flowchart TD
 | META-Q-003 | TO_CONFIRM | 批量更新是否支持部分更新、覆盖、清空和部分成功 | 后端+QA | 阻塞批量交互 |
 | META-Q-004 | TO_CONFIRM | 检索 API 的 metadata filter 表达式和运算符 | 后端/检索 | 阻塞过滤验收 |
 | META-Q-005 | TO_CONFIRM | 内置字段是否存在、是否可开关、是否只读 | 产品+后端 | 阻塞 P1 范围 |
+| META-Q-006 | TO_CONFIRM | 瀚海 OPEN-API 如何上线到星流平台 API Explorer/控制台 | 平台后端 | 阻塞接口联调和原型定稿 |
 
 ## 13. 评审记录
 
