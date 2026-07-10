@@ -6,8 +6,13 @@
 |---|---|---|---|---|---|
 | TAG-EV-0001 | VERIFIED | 需求方明确要求知识库级标签与文档级标签分开；知识库级标签涉及计费，文档级标签不涉及计费 | 用户补充会议纪要与后续明确说明 | `00_项目总脑.md` | 2026-07-09 |
 | TAG-EV-0002 | TO_CONFIRM | 当前已浏览的瀚海 OPEN-API 元数据目录未发现我方标签接口；这只证明当前搜索范围未发现，不证明接口不存在 | 瀚海 OPEN-API 当前可见目录 | `06_接口/接口清单.md` | 2026-07-09 |
-| TAG-EV-0003 | VERIFIED | Dify 官方 Knowledge API 提供知识库标签创建、查询、更新、绑定、解绑等能力，标签类型为知识库标签 | Dify Tags API：`https://docs.dify.ai/en/api-reference/tags/create-knowledge-tag`、`https://docs.dify.ai/en/api-reference/tags/list-knowledge-tags`、`https://docs.dify.ai/en/api-reference/tags/create-tag-binding`、`https://docs.dify.ai/en/api-reference/tags/delete-tag-binding` | 公开官方文档 | 2026-07-10 |
-| TAG-EV-0004 | VERIFIED | Dify 知识库列表 API 支持按 keyword 和 tags 过滤知识库，响应示例含 `tags` 字段 | Dify List Knowledge Bases：`https://docs.dify.ai/en/api-reference/knowledge-bases/list-knowledge-bases` | 公开官方文档 | 2026-07-10 |
-| TAG-EV-0005 | INFERRED | 竞品常把“文档过滤”做在 metadata/filtering 链路；该事实只能作为过滤链路参考，不能替代我方“文档级标签”产品对象 | 由 Dify Metadata 与 Knowledge Retrieval 文档推断：`https://docs.dify.ai/en/cloud/use-dify/knowledge/metadata`、`https://docs.dify.ai/en/cloud/use-dify/nodes/knowledge-retrieval` | 公开官方文档 | 2026-07-10 |
-| TAG-EV-0006 | TO_CONFIRM | 友商控制台中知识库标签、文档标签的真实页面入口、状态和异常反馈 | 待用户登录/提供友商控制台 | Playwright 截图/HAR 待采集 | 2026-07-10 |
-| TAG-EV-0007 | TO_CONFIRM | 知识库级标签是否在竞品中承担计费、项目、成本中心或业务平台同步能力 | 待友商控制台和官方计费/套餐文档 | 证据待采集 | 2026-07-10 |
+| TAG-EV-0003 | VERIFIED | 火山知识库支持在创建知识库的高级配置中创建标签；标签用于对知识库文档分类与过滤，检索时先在标签范围内检索文档 | 扣子官方《关联火山知识库》：`https://docs.coze.cn/guides_kir27ori` | 公开官方文档 | 2026-07-10 |
+| TAG-EV-0004 | VERIFIED | 火山知识库标签仅旗舰版支持，且公开文档说明仅支持在创建知识库时创建标签，创建后不支持变更标签名称 | 扣子官方《关联火山知识库》：`https://docs.coze.cn/guides_kir27ori` | 公开官方文档 | 2026-07-10 |
+| TAG-EV-0005 | VERIFIED | 火山知识库支持文档级打标：导入后可在“原始文档-标签”列编辑标签，也可通过导入文档接口或更新文档信息接口设置标签字段 | 火山引擎官方《通过标签实现权限管理》：`https://docs.volcengine.com/docs/84313/2192050?lang=zh` | 公开官方文档 | 2026-07-10 |
+| TAG-EV-0006 | VERIFIED | 火山知识库检索/问答可通过 `doc_filter` 参数配置标签权限过滤 | 火山引擎官方《通过标签实现权限管理》：`https://docs.volcengine.com/docs/84313/2192050?lang=zh` | 公开官方文档 | 2026-07-10 |
+| TAG-EV-0007 | VERIFIED | 火山知识库在扣子编程中使用时，存储、召回与重排由火山知识库侧完成并产生火山知识库费用；创建后上传文档会预留计算资源并开始计费 | 扣子官方《关联火山知识库》：`https://docs.coze.cn/guides_kir27ori` | 公开官方文档 | 2026-07-10 |
+| TAG-EV-0008 | VERIFIED | 阿里云百炼支持文档搜索类知识库的标签过滤：可上传文档时设置标签或在数据管理页编辑标签；调用应用 API 时可在 `tags` 参数中指定标签，也可在控制台编辑智能体应用时设置标签 | 阿里云百炼《RAG效果优化》：`https://www.alibabacloud.com/help/zh/model-studio/rag-optimization` | 公开官方文档 | 2026-07-10 |
+| TAG-EV-0009 | VERIFIED | 阿里云百炼知识检索服务支持多知识库联合检索、知识库路由和知识库级独立参数；独立配置中包含“标签过滤” | 阿里云百炼《知识检索》：`https://help.aliyun.com/zh/model-studio/rag-knowledge-retrieval` | 公开官方文档 | 2026-07-10 |
+| TAG-EV-0010 | VERIFIED | Dify 官方 Knowledge API 的标签能力已读，但按用户确认不作为正式竞品，只能作接口/交互参考实现 | Dify 官方 API 文档 | 参考实现记录 | 2026-07-10 |
+| TAG-EV-0011 | TO_CONFIRM | 火山云/阿里云控制台中知识库标签、文档标签的真实页面入口、状态和异常反馈 | 待用户登录火山云/阿里云控制台 | Playwright 截图/HAR 待采集 | 2026-07-10 |
+| TAG-EV-0012 | TO_CONFIRM | 火山云/阿里云标签是否直接承载项目、成本中心或业务平台计费归属，还是仅在知识库资源层计费 | 待控制台和官方计费/套餐文档继续采证 | 证据待采集 | 2026-07-10 |
