@@ -1,0 +1,14 @@
+{
+  "name": "pm-kb-tags-metadata-requirements",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "capture:aliyun": "node tools/competitor-playwright/session.mjs aliyun",
+    "capture:volcengine": "node tools/competitor-playwright/session.mjs volcengine",
+    "capture:sanitize": "node tools/competitor-playwright/sanitize-har.mjs",
+    "capture:extract": "node tools/competitor-playwright/extract-api-evidence.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.55.0"
+  }
+}

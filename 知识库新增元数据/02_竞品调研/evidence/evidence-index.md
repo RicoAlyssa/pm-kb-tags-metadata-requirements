@@ -1,6 +1,6 @@
 # 证据台账：知识库新增元数据
 
-更新日期：2026-07-10
+更新日期：2026-07-13
 
 | ID | 状态 | 结论 | 来源 | 产物 | 时间 |
 |---|---|---|---|---|---|
@@ -13,8 +13,12 @@
 | META-EV-0007 | VERIFIED | 阿里云百炼 SearchFilters 用于过滤知识库召回结果，只返回满足条件的文本切片；多个子分组默认 AND 且不可更改 | 阿里云百炼《使用 SearchFilters 提高知识库召回准确性》：`https://help.aliyun.com/zh/model-studio/how-to-use-search-filters` | 公开官方文档 | 2026-07-10 |
 | META-EV-0008 | VERIFIED | 阿里云 PAI RetrieveKnowledgeBase 支持 `MetaDataFilterConditions`，其中 `FilterCondition` 取 `and/or`，`MetaDataFilters` 中 `Operator` 支持 `==`、`!=`、`contains`（contains 仅支持 `file_name` 字段） | 阿里云 PAI API 文档：`https://help.aliyun.com/zh/pai/developer-reference/api-pailangstudio-2024-07-10-retrieveknowledgebase` | 公开官方文档 | 2026-07-10 |
 | META-EV-0009 | VERIFIED | Dify/RAGFlow 元数据实现已读，但按用户确认不作为正式竞品，只能作参考实现 | Dify/RAGFlow 官方文档 | 参考实现记录 | 2026-07-10 |
-| META-EV-0010 | TO_CONFIRM | 火山云控制台中元数据/标签字段与文档信息更新的真实页面入口、批量能力和错误反馈 | 待登录火山云控制台 | Playwright 截图/HAR 待采集 | 2026-07-10 |
-| META-EV-0011 | TO_CONFIRM | 阿里云百炼/PAI 控制台中元数据提取、SearchFilters、召回测试、文档 Meta 信息的真实页面状态 | 待登录阿里云控制台 | Playwright 截图/HAR 待采集 | 2026-07-10 |
-| META-EV-0012 | TO_CONFIRM | 我方新增/更新/删除/查询元数据接口的完整请求响应、错误码、约束 | 瀚海 OPEN-API 其余元数据页面 | 待提取 | 2026-07-10 |
-| META-EV-0013 | TO_CONFIRM | 我方检索接口如何表达元数据过滤条件、组合逻辑和运算符 | 瀚海 OPEN-API 检索接口/后端确认 | 待提取 | 2026-07-10 |
+| META-EV-0010 | PARTIAL | 火山旗舰版已确认强类型字段定义、单文档编辑、列表与检索/问答过滤；批量赋值和保存错误反馈仍待补 | Playwright 控制台截图/HAR | `02_竞品调研/竞品横向对比.md` | 2026-07-13 |
+| META-EV-0011 | VERIFIED | 阿里控制台已确认 Metadata 模板、抽取方式、文档 Meta 信息查看及用途开关 | Playwright 控制台截图 | `02_竞品调研/evidence/阿里云百炼截图分类.md` | 2026-07-13 |
+| META-EV-0012 | VERIFIED | 瀚海已确认元数据定义 CRUD、查询字段、批量文档赋值及 200/400/401/403/404 | 瀚海 Apifox | `06_接口/接口清单.md` | 2026-07-13 |
+| META-EV-0013 | VERIFIED | 瀚海检索支持 `filter_expression` 与 `metadata_filtering_conditions.logical_operator/conditions[]` | 瀚海 Apifox | `06_接口/前后端字段映射.md` | 2026-07-13 |
 | META-EV-0014 | VERIFIED | 阿里云百炼控制台存在独立“Metadata 抽取 / Meta 信息模板”能力，字段级支持常量、变量、大模型、正则、关键词搜索，并可分别控制参与检索和参与模型回复 | 用户提供阿里云百炼截图 | `02_竞品调研/evidence/阿里云百炼截图分类.md` | 2026-07-10 |
+| META-EV-0015 | VERIFIED | 火山旗舰版把强类型文档元数据呈现为标签，支持 List&lt;int64&gt;、List&lt;string&gt;、Float32、Bool、Date_time、Geo_point；`doc_id` 为内置可过滤字段 | 独立 Playwright 控制台采证 | `02_竞品调研/evidence/火山方舟Playwright接口采证-20260712.md` | 2026-07-12 |
+| META-EV-0016 | VERIFIED | 火山标签/元数据检索过滤请求由 `CreateSearchConfig` 提交，核心为 `Filter.Relation + Conditions[]`，条件含 `FieldName/FieldType/Operator/Values` | 独立 Playwright 脱敏 HAR | `02_竞品调研/evidence/火山方舟Playwright接口采证-20260712.md` | 2026-07-12 |
+| META-EV-0017 | PARTIAL | 本次只读打开文档标签编辑页后取消，未触发保存请求；控制台 `update_meta`/标签值更新请求体仍待单独测试资源上的旗舰版保存采证 | 独立 Playwright 控制台/HAR 采证 | `02_竞品调研/evidence/火山方舟Playwright接口采证-20260712.md` | 2026-07-12 |
+| META-EV-0018 | VERIFIED | 火山旗舰版强类型 Schema 和过滤闭环完整，但自动抽取弱、创建后字段名不可变；适合参考类型过滤和内置字段，不宜照搬命名及套餐绑定 | 旗舰版专项测评 | `02_竞品调研/竞品横向对比.md` | 2026-07-13 |
