@@ -186,6 +186,31 @@
 
 ## 8. 接口与数据
 
+### 8.0 本版后端最小 Action 契约
+
+完整契约见：`../06_接口/后端接口契约-最小改动.md`。
+
+本版不再只写“待后端确认接口”，而是按当前星流平台 `Action + Version=2025-11-14` 风格给出建议 Action。知识库级标签和文档级标签分开；文档级标签不含计费字段；知识库级标签涉及业务/计费归属。
+
+| 前端能力 | 建议 Action / 改动 | 最小改动说明 |
+|---|---|---|
+| 查询知识库级标签 | `DescribeKnowledgeBaseTags` | 新增 Action；可按 `DatasetId` 返回已绑定标签 |
+| 新建/编辑/删除知识库级标签 | `CreateKnowledgeBaseTag` / `ModifyKnowledgeBaseTag` / `DeleteKnowledgeBaseTag` | 新增 Action；包含 `BusinessOwner`，同步异常只展示异常态 |
+| 绑定知识库级标签 | `ModifyKnowledgeBaseTagBindings` | 新增 Action；支持 Add/Remove/Set，部分失败返回明细 |
+| 文档标签池 | `DescribeDocumentTags` | 新增 Action；展示名称、绑定文档数、过滤引用 |
+| 新建/编辑/删除文档标签 | `CreateDocumentTag` / `ModifyDocumentTag` / `DeleteDocumentTag` | 新增 Action；不含字段类型、取值方式或模型回复开关 |
+| 单篇/批量文档打标 | `BatchModifyDocumentTags` | 新增 Action；部分成功返回失败清单 |
+| 导入时打标 | `ImportDocuments.DocumentTagIds` | 兼容扩展；不传时旧行为不变 |
+| 文档列表/详情标签展示 | `DescribeDocuments/DescribeDocument.IncludeDocumentTags` | 兼容扩展；默认不返回，旧调用不受影响 |
+| 标签检索过滤 | `RetrieveKnowledge.RetrievalModel.TagFilter` | 兼容扩展；包含标签、排除标签、匹配全部/任一 |
+
+关键语义：
+
+- 文档级标签只做分类和检索过滤，不承载计费。
+- 知识库级标签成功同步态不常驻展示；只展示同步中/失败。
+- 文档权限先收敛候选范围，标签过滤只能继续缩小范围。
+- 批量打标采用部分成功：`SucceededItems[] + FailedItems[]`。
+
 ### 8.1 已有证据
 
 - 星流 OpenAPI `2025-11-14` 已覆盖 `ImportDocuments`、`DescribeDocuments`、`DescribeDocument`、`DeleteDocument`、`ReindexDocuments`、`RetrieveKnowledge` 等主链路。

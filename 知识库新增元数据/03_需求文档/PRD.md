@@ -180,6 +180,30 @@
 
 ## 8. 接口与数据
 
+### 8.0 本版后端最小 Action 契约
+
+完整契约见：`../06_接口/后端接口契约-最小改动.md`。
+
+本版不再只写“待后端确认接口”，而是按当前星流平台 `Action + Version=2025-11-14` 风格给出建议 Action，后端评审可改名，但语义、请求/响应和错误模型需保持等价。
+
+| 前端能力 | 建议 Action / 改动 | 最小改动说明 |
+|---|---|---|
+| 元数据定义列表 | `DescribeMetadataFields` | 新增 Action；适配瀚海 `GET /metadata` |
+| 新建元数据字段 | `CreateMetadataField` | 新增 Action；P0 只开放 `String` |
+| 编辑元数据字段 | `ModifyMetadataField` | 新增 Action；只允许改 `Name`，类型不可改 |
+| 删除元数据字段 | `DeleteMetadataField` | 新增 Action；被检索配置引用时返回 409 阻断 |
+| 单篇/批量编辑文档元数据 | `BatchModifyDocumentMetadata` | 新增 Action；单篇也走批量结构；部分成功返回失败明细 |
+| 文档列表元数据摘要 | `DescribeDocuments` 增加 `IncludeCustomMetadata` | 兼容扩展；默认不返回，旧调用不受影响 |
+| 文档详情元数据值 | `DescribeDocument` 增加 `IncludeCustomMetadata` | 兼容扩展；不复用现有 `Metadata=all/only/without` |
+| 元数据检索过滤 | `RetrieveKnowledge.RetrievalModel.MetadataFilter` | 兼容扩展；不传时保持旧检索行为 |
+
+关键语义：
+
+- 元数据清空统一用 `Operation=Clear`，不要用 `null/空字符串/缺失字段` 表达不同含义。
+- 批量编辑采用部分成功：`SucceededItems[] + FailedItems[]`。
+- 检索过滤前端传 `MetadataId`，星流适配层映射到底层字段名。
+- 保存成功态不常驻展示“已生效”；只有索引刷新中/失败才展示异常提示。
+
 ### 8.1 已验证我方接口线索
 
 接口证据分成两层：星流是对外兼容基线，瀚海是优先复用的底层实现。
@@ -215,7 +239,7 @@
 |---|---|
 | 控制台调用 | 星流控制台通过适配层调用瀚海能力，不直接暴露瀚海开发环境地址 |
 | 创建主接口 | 不修改；知识库创建完成后再调用元数据定义接口 |
-| 对外 API | 保持星流 `Action + Version` 风格；Action 名称由后端评审确定 |
+| 对外 API | 保持星流 `Action + Version` 风格；建议 Action 已在 8.0 给出，后端可评审改名但需保持契约等价 |
 | 检索兼容 | 在 `RetrieveKnowledge.RetrievalModel` 增加可选条件；不传时行为不变 |
 | 文档兼容 | 不修改 `ImportDocuments`；文档导入完成后使用独立批量更新能力赋值 |
 | 权限 | 每项写操作映射 IAM Action；全量/成员/只读策略和自定义策略沿用现有机制 |
@@ -238,7 +262,7 @@
 | 是否支持 `partial_update` 或覆盖更新 | 决定批量编辑器“只更新已有字段/应用到全部” |
 | 批量更新是全量事务还是部分成功 | 决定失败清单和回滚 |
 | 瀚海支持的完整类型和运算符枚举 | 决定表单控件和校验 |
-| 星流适配层 Action 名称与版本 | 决定 API Explorer 和联调 |
+| Action 命名最终评审 | 8.0 已给出建议命名；后端若改名需同步 API Explorer、字段映射和验收用例 |
 
 ## 9. 异常与边界
 
@@ -301,7 +325,7 @@
 | META-Q-003 | TO_CONFIRM | 批量更新是否支持部分更新、覆盖、清空和部分成功 | 后端+QA | 阻塞批量交互 |
 | META-Q-004 | PARTIAL | 过滤结构复用瀚海条件组；完整类型和运算符枚举待后端给出 | 后端/检索 | 阻塞表单校验 |
 | META-Q-005 | TO_CONFIRM | 内置字段是否存在、是否可开关、是否只读 | 产品+后端 | 阻塞 P1 范围 |
-| META-Q-006 | TO_CONFIRM | 星流适配层的 Action 名称、版本和上线顺序 | 平台后端 | 阻塞接口联调 |
+| META-Q-006 | REVIEW | 星流适配层建议 Action、字段和错误模型已补齐，需后端评审最终命名与上线顺序 | 平台后端 | 接口联调 |
 
 ## 13. 评审记录
 
